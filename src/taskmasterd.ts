@@ -29,5 +29,14 @@
  *                              e.g. 'cumulative,callers')
  */
 
-import {ClientOptions} from "@taskmaster/options";
+import {InputOption, Options} from "@taskmaster/options";
 
+const options: InputOption[] = [
+    ['h|help', {
+        description: "Display the help command",
+        on: () => console.log('Hi!'),
+    }],
+]
+
+const parser = new Options();
+parser.options(options).parse()
