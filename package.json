@@ -1,12 +1,13 @@
 {
-  "name": "taskmaster-cllient",
+  "name": "taskmaster",
   "version": "1.0.0",
-  "description": "supervisord clone - the client",
+  "description": "supervisord clone",
   "main": "build/index.js",
   "private": true,
   "scripts": {
-    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "dev": "nodemon src/index.ts",
+    "build": "node_modules/.bin/tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "devdaemon": "node_modules/.bin/nodemon src/taskmasterd.ts",
+    "devctl": "node_modules/.bin/nodemon src/taskmasterctl.ts",
     "start": "node build/index.js"
   },
   "repository": {
@@ -25,5 +26,8 @@
     "tsc-alias": "^1.6.7",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "yaml": "^2.0.1"
   }
 }

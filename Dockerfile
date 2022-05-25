@@ -4,7 +4,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-COPY . ./
+COPY supervisord ./
+
+VOLUME [ "/app/config.yaml" ]
 RUN npm run build
 
 CMD ["npm", "run", "start"]
