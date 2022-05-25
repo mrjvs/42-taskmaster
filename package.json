@@ -6,9 +6,10 @@
   "private": true,
   "scripts": {
     "build": "node_modules/.bin/tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "devdaemon": "node_modules/.bin/nodemon src/taskmasterd.ts",
-    "devctl": "node_modules/.bin/nodemon src/taskmasterctl.ts",
-    "start": "node build/index.js"
+    "d:dev": "node_modules/.bin/nodemon src/taskmasterd.ts",
+    "ctl:dev": "node_modules/.bin/nodemon src/taskmasterctl.ts",
+    "d:start": "node build/taskmasterd.js",
+    "ctl:start": "node build/taskmasterctl.js"
   },
   "repository": {
     "type": "git",
