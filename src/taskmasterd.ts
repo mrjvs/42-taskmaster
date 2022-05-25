@@ -29,5 +29,41 @@
  *                              e.g. 'cumulative,callers')
  */
 
-import {ClientOptions} from "@taskmaster/options";
+import { ConnectionHandler } from "comm/connection";
+import { createTMServer } from "comm/socket";
+import { Server } from "net";
 
+function registerGracefulShutdown(server: Server) {
+  process.stdin.resume(); // prevent app from closing instantly
+  [
+    "SIGTERM",
+    "SIGINT",
+    "SIGUSR1",
+    "SIGUSR2",
+    "uncaughtException",
+    "exit",
+  ].forEach((v) => {
+    process.on("exit", () => {
+      server?.close();
+      process.exit();
+    });
+  });
+}
+
+async function bootstrap() {
+  const server = await createTMServer(9999, (client) => {
+    console.log("client connected");
+    const handler = new ConnectionHandler(client);
+    handler.on("exit", () => {
+      console.log("client disconnected");
+    });
+  });
+  registerGracefulShutdown(server);
+  server.on("close", () => {
+    console.log("server closed");
+    process.exit(1);
+  });
+  console.log("server listening");
+}
+
+bootstrap();

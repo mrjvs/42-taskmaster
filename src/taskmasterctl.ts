@@ -19,3 +19,24 @@
  * interactively is started.  Use the action "help" to find out about available
  * actions.
  */
+
+import { ConnectionHandler } from "comm/connection";
+import { connectToTMServer, connectToTMUnixSocket } from "comm/socket";
+import { OpCodes } from "comm/opcodes";
+
+async function bootstrap() {
+  const conn = await connectToTMServer("127.0.0.1:9999");
+  const handler = new ConnectionHandler(conn);
+  handler.on("exit", () => {
+    console.log("connection closed");
+    process.exit(1);
+  });
+
+  handler.send({
+    type: OpCodes.PING,
+    data: 42,
+  });
+  console.log("sent data");
+}
+
+bootstrap();

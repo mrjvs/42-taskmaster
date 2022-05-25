@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/mrjvs/42-taskmaster#readme",
   "devDependencies": {
+    "@types/node": "^17.0.35",
     "nodemon": "^2.0.16",
     "ts-node": "^10.7.0",
     "tsc-alias": "^1.6.7",
